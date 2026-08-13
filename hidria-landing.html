@@ -260,6 +260,7 @@
     justify-content:center;
   }
   .hero-art svg{width:100%;height:auto;max-width:430px;}
+  .hero-art img{width:100%;height:auto;max-width:400px;border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);}
   .float-card{
     position:absolute;
     background:var(--white);
@@ -334,15 +335,16 @@
   .solution-visual{
     background:linear-gradient(160deg, var(--blue), var(--navy));
     border-radius:var(--radius-lg);
-    padding:44px 34px;
     position:relative;
     overflow:hidden;
     min-height:380px;
     display:flex;
     align-items:center;
     justify-content:center;
+    box-shadow:var(--shadow-soft);
   }
   .solution-visual svg{width:78%;max-width:260px;}
+  .solution-img{width:100%;height:100%;min-height:380px;object-fit:cover;display:block;}
   .check-list{display:flex;flex-direction:column;gap:16px;margin-top:30px;}
   .check-item{display:flex;gap:14px;align-items:flex-start;}
   .check-item .ico{
@@ -790,21 +792,7 @@
     </div>
 
     <div class="hero-art">
-      <svg viewBox="0 0 420 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="210" cy="420" rx="140" ry="20" fill="#D6ECF6"/>
-        <rect x="120" y="120" width="180" height="260" rx="26" fill="#0D2B45"/>
-        <rect x="138" y="150" width="144" height="150" rx="14" fill="#1E5787"/>
-        <rect x="152" y="166" width="116" height="20" rx="10" fill="#8EC6E0"/>
-        <rect x="152" y="196" width="80" height="12" rx="6" fill="#4AA3C3"/>
-        <rect x="152" y="216" width="100" height="12" rx="6" fill="#4AA3C3" opacity=".7"/>
-        <circle cx="210" cy="330" r="34" fill="#4AA3C3"/>
-        <path d="M210 312c0 0-16 18-16 28.8C194 349 201.2 356 210 356c8.8 0 16-7 16-15.2C226 330 210 312 210 312z" fill="#F3F9FC"/>
-        <rect x="180" y="90" width="60" height="34" rx="8" fill="#1E5787"/>
-        <path d="M60 380c30-18 50-18 80 0s50 18 80 0 50-18 80 0 50 18 80 0" stroke="#8EC6E0" stroke-width="6" stroke-linecap="round"/>
-        <circle cx="330" cy="120" r="10" fill="#8EC6E0" opacity=".8"/>
-        <circle cx="70" cy="160" r="7" fill="#4AA3C3" opacity=".7"/>
-        <circle cx="90" cy="90" r="5" fill="#8EC6E0" opacity=".8"/>
-      </svg>
+      <img src="assets/Filtro.png" alt="Purificador de agua Hidria" class="hero-product-img">
       <div class="float-card c1">
         <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#1E5787" stroke-width="1.8"/><path d="M12 7.5v9M9.5 9.8c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.1-5 3.5 0 1.1 1.1 1.9 2.5 1.9s2.5-.9 2.5-2" stroke="#1E5787" stroke-width="1.6" stroke-linecap="round"/></svg></span>
         <div>
@@ -865,14 +853,7 @@
 <section class="section bg-pale" id="solucion">
   <div class="wrap solution-grid">
     <div class="solution-visual reveal">
-      <svg viewBox="0 0 200 220" fill="none">
-        <rect x="30" y="20" width="140" height="180" rx="20" fill="#F3F9FC" opacity=".08"/>
-        <rect x="46" y="40" width="108" height="120" rx="12" fill="#4AA3C3"/>
-        <rect x="60" y="56" width="80" height="14" rx="7" fill="#F3F9FC"/>
-        <rect x="60" y="80" width="55" height="10" rx="5" fill="#F3F9FC" opacity=".7"/>
-        <circle cx="100" cy="185" r="20" fill="#F3F9FC"/>
-        <path d="M100 172c0 0-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-16-9-16z" fill="#4AA3C3"/>
-      </svg>
+      <img src="assets/Filtros.png" alt="Purificador Hidria con set de filtros y empaque" class="solution-img">
     </div>
     <div class="reveal">
       <span class="eyebrow"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>La solución</span>
