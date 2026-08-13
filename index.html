@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hidria — Agua segura y accesible para todos</title>
+<meta name="description" content="Purificadores de agua a bajo costo para hogares, comunidades, escuelas y pequeños negocios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0D2B45;
+    --blue:#1E5787;
+    --aqua:#4AA3C3;
+    --light-blue:#8EC6E0;
+    --pale-blue:#D6ECF6;
+    --white:#F3F9FC;
+
+    --ink: var(--navy);
+    --muted: #4d6b82;
+    --radius-lg: 28px;
+    --radius-md: 20px;
+    --radius-sm: 14px;
+    --shadow-soft: 0 20px 45px -20px rgba(13,43,69,0.25);
+    --shadow-card: 0 12px 30px -14px rgba(13,43,69,0.18);
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2.5px solid var(--aqua);
+    outline-offset:3px;
+    border-radius:8px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+    .float-card{animation:none;}
+  }
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.eyebrow{font-family:'Sora',sans-serif;}
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  section{position:relative;}
+
+  .wrap{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    background:var(--pale-blue);
+    padding:7px 16px 7px 12px;
+    border-radius:100px;
+    margin-bottom:18px;
+  }
+  .eyebrow .drop{width:9px;height:11px;}
+
+  h1{
+    font-size:clamp(2.3rem, 4.6vw, 3.6rem);
+    font-weight:800;
+    line-height:1.08;
+    letter-spacing:-.02em;
+    color:var(--navy);
+  }
+  h2{
+    font-size:clamp(1.7rem, 3vw, 2.5rem);
+    font-weight:700;
+    line-height:1.15;
+    letter-spacing:-.01em;
+    color:var(--navy);
+  }
+  h3{
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--navy);
+  }
+  p{color:var(--muted);}
+  .lead{
+    font-size:clamp(1.05rem,1.6vw,1.2rem);
+    color:var(--muted);
+    max-width:52ch;
+  }
+
+  .section-head{
+    max-width:640px;
+    margin-bottom:52px;
+  }
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    position:relative;
+    overflow:hidden;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-weight:700;
+    font-size:.98rem;
+    padding:15px 28px;
+    border-radius:100px;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--aqua);
+    color:var(--white);
+    box-shadow:0 14px 30px -10px rgba(74,163,195,.6);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 36px -10px rgba(74,163,195,.75);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--navy);
+    border:1.5px solid rgba(13,43,69,.18);
+  }
+  .btn-ghost:hover{border-color:var(--blue); background:rgba(30,87,135,.05);}
+  .btn-light{
+    background:var(--white);
+    color:var(--navy);
+  }
+  .btn-light:hover{transform:translateY(-2px);}
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.55);
+    transform:scale(0);
+    animation:ripple .6s var(--ease);
+    pointer-events:none;
+  }
+  @keyframes ripple{to{transform:scale(1);opacity:0;}}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:1000;
+    padding:16px 0;
+    transition:background .35s var(--ease), box-shadow .35s var(--ease), padding .35s var(--ease);
+  }
+  header.scrolled{
+    background:rgba(243,249,252,.85);
+    backdrop-filter:blur(14px);
+    box-shadow:0 8px 30px -18px rgba(13,43,69,.35);
+    padding:10px 0;
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-family:'Sora',sans-serif;
+    font-weight:800;
+    font-size:1.4rem;
+    color:var(--navy);
+  }
+  .logo .drop{width:14px;height:18px;}
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+  @media (min-width:1101px) and (max-width:1300px){
+    .nav-links{gap:20px;}
+    .nav-links a{font-size:.87rem;}
+  }
+  .nav-links a{
+    font-size:.92rem;
+    font-weight:600;
+    color:var(--blue);
+    position:relative;
+    padding:4px 0;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;left:0;bottom:-2px;
+    width:0;height:2px;background:var(--aqua);
+    transition:width .3s var(--ease);
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .burger{
+    display:none;
+    width:40px;height:40px;
+    border-radius:50%;
+    background:var(--pale-blue);
+    align-items:center;justify-content:center;
+    flex-direction:column;gap:4px;
+  }
+  .burger span{width:16px;height:2px;background:var(--navy);border-radius:2px;transition:.3s;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:170px 0 0;
+    background:linear-gradient(180deg, var(--pale-blue) 0%, #eaf5fb 60%, var(--white) 100%);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:48px;
+    align-items:center;
+    padding-bottom:70px;
+  }
+  .hero h1{margin-bottom:14px;}
+  .tagline{
+    font-family:'Sora',sans-serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--aqua);
+    margin-bottom:18px;
+  }
+  .hero .lead{margin-bottom:34px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px;}
+  .hero-trust{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+  .trust-item{display:flex;align-items:center;gap:10px;}
+  .trust-item .ico{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow-card);
+    flex-shrink:0;
+  }
+  .trust-item span{font-size:.85rem;font-weight:600;color:var(--blue);}
+
+  .hero-art{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .hero-art svg{width:100%;height:auto;max-width:430px;}
+  .float-card{
+    position:absolute;
+    background:var(--white);
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow-soft);
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    animation:float 5s ease-in-out infinite;
+  }
+  .float-card.c1{top:6%; left:-4%; animation-delay:0s;}
+  .float-card.c2{bottom:10%; right:-6%; animation-delay:1.2s;}
+  .float-card .ico{
+    width:38px;height:38px;border-radius:12px;
+    background:var(--pale-blue);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .float-card strong{display:block;font-size:.95rem;color:var(--navy);}
+  .float-card small{color:var(--muted);font-size:.76rem;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+  .wave-divider{
+    display:block;
+    width:100%;
+    line-height:0;
+  }
+  .wave-divider svg{width:100%;height:auto;display:block;}
+
+  /* ---------- Generic section spacing ---------- */
+  .section{padding:100px 0;}
+  .section.tight{padding:80px 0;}
+  .bg-white{background:var(--white);}
+  .bg-pale{background:var(--pale-blue);}
+  .bg-navy{background:var(--navy); color:var(--white);}
+  .bg-navy p{color:rgba(243,249,252,.72);}
+  .bg-navy h2{color:var(--white);}
+
+  /* ---------- Problem section ---------- */
+  .problem-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:start;
+  }
+  .stat-list{display:flex;flex-direction:column;gap:26px;}
+  .stat-row{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    padding-bottom:26px;
+    border-bottom:1px solid rgba(13,43,69,.08);
+  }
+  .stat-row:last-child{border-bottom:none;padding-bottom:0;}
+  .stat-num{
+    font-family:'Sora',sans-serif;
+    font-weight:800;
+    font-size:1.5rem;
+    color:var(--aqua);
+    min-width:76px;
+  }
+  .stat-row h4{font-size:1.02rem;color:var(--navy);margin-bottom:4px;}
+  .stat-row p{font-size:.93rem;}
+
+  /* ---------- Solution ---------- */
+  .solution-grid{
+    display:grid;
+    grid-template-columns:.85fr 1.15fr;
+    gap:60px;
+    align-items:center;
+  }
+  .solution-visual{
+    background:linear-gradient(160deg, var(--blue), var(--navy));
+    border-radius:var(--radius-lg);
+    padding:44px 34px;
+    position:relative;
+    overflow:hidden;
+    min-height:380px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .solution-visual svg{width:78%;max-width:260px;}
+  .check-list{display:flex;flex-direction:column;gap:16px;margin-top:30px;}
+  .check-item{display:flex;gap:14px;align-items:flex-start;}
+  .check-item .ico{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--pale-blue);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:2px;
+  }
+  .check-item span{color:var(--ink);font-weight:600;font-size:.98rem;}
+
+  /* ---------- Cards grid (value prop) ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+  }
+  .card{
+    background:var(--white);
+    border-radius:var(--radius-md);
+    padding:32px 26px;
+    box-shadow:var(--shadow-card);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .card:hover{transform:translateY(-6px); box-shadow:0 24px 45px -18px rgba(13,43,69,.28);}
+  .card .ico{
+    width:52px;height:52px;
+    border-radius:16px;
+    background:var(--pale-blue);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .card h3{margin-bottom:10px;}
+  .card p{font-size:.92rem;}
+
+  /* ---------- Target customers ---------- */
+  .customer-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  .customer-card{
+    background:var(--white);
+    border-radius:var(--radius-md);
+    padding:28px 22px;
+    text-align:center;
+    box-shadow:var(--shadow-card);
+    border:1px solid rgba(13,43,69,.05);
+  }
+  .customer-card .ico{
+    width:56px;height:56px;
+    border-radius:50%;
+    background:linear-gradient(160deg, var(--aqua), var(--blue));
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 18px;
+  }
+  .customer-card h4{font-size:.98rem;color:var(--navy);margin-bottom:6px;}
+  .customer-card p{font-size:.85rem;}
+
+  /* ---------- Comparison table ---------- */
+  .compare-wrap{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-soft);
+    overflow:hidden;
+  }
+  .compare-scroll{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .scroll-hint{
+    display:none;
+    align-items:center;
+    gap:6px;
+    justify-content:center;
+    font-size:.8rem;
+    font-weight:600;
+    color:var(--blue);
+    background:var(--pale-blue);
+    padding:10px;
+    margin:0;
+  }
+  table{width:100%;border-collapse:collapse;}
+  thead th{
+    padding:22px 18px;
+    font-family:'Sora',sans-serif;
+    font-size:.95rem;
+    text-align:left;
+    color:var(--muted);
+    border-bottom:1px solid rgba(13,43,69,.08);
+  }
+  thead th.highlight{
+    color:var(--white);
+    background:var(--aqua);
+  }
+  tbody td{
+    padding:18px;
+    font-size:.9rem;
+    border-bottom:1px solid rgba(13,43,69,.06);
+    color:var(--ink);
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  td.highlight{background:rgba(74,163,195,.08); font-weight:700;}
+  .yes{color:var(--aqua); font-weight:800;}
+  .no{color:#c1c9d2; font-weight:800;}
+  td:first-child{font-weight:600; color:var(--navy);}
+
+  /* ---------- How it works ---------- */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    position:relative;
+  }
+  .step{
+    position:relative;
+    padding:0 20px;
+    text-align:left;
+  }
+  .step-num{
+    font-family:'Sora',sans-serif;
+    font-weight:800;
+    font-size:.85rem;
+    color:var(--aqua);
+    background:var(--pale-blue);
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .step-line{
+    position:absolute;
+    top:17px;
+    left:74px;
+    right:-4px;
+    height:1px;
+    background:repeating-linear-gradient(90deg, var(--light-blue) 0 6px, transparent 6px 12px);
+  }
+  .step:last-child .step-line{display:none;}
+  .step h4{font-size:1rem;margin-bottom:8px;}
+  .step p{font-size:.88rem;}
+
+  /* ---------- Services ---------- */
+  .service-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  .service-card{
+    background:var(--pale-blue);
+    border-radius:var(--radius-md);
+    padding:28px 22px;
+    transition:background .35s var(--ease), transform .35s var(--ease);
+  }
+  .service-card:hover{background:var(--light-blue); transform:translateY(-4px);}
+  .service-card .ico{
+    width:44px;height:44px;
+    border-radius:12px;
+    background:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+  }
+  .service-card h4{font-size:.98rem;margin-bottom:6px;}
+  .service-card p{font-size:.85rem;}
+
+  /* ---------- Social impact ---------- */
+  .impact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .impact-points{display:flex;flex-direction:column;gap:22px;}
+  .impact-point{display:flex;gap:16px;align-items:flex-start;}
+  .impact-point .ico{
+    width:44px;height:44px;border-radius:12px;
+    background:rgba(142,198,224,.16);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .impact-point h4{color:var(--white);font-size:1rem;margin-bottom:4px;}
+  .impact-point p{font-size:.9rem;}
+  .impact-goals{
+    background:rgba(243,249,252,.05);
+    border:1px solid rgba(243,249,252,.15);
+    border-radius:var(--radius-lg);
+    padding:34px;
+  }
+  .impact-goals .goal{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid rgba(243,249,252,.12);
+  }
+  .impact-goals .goal:last-child{border-bottom:none;}
+  .impact-goals .goal span:first-child{font-size:.88rem;color:rgba(243,249,252,.7);}
+  .impact-goals .goal strong{font-family:'Sora',sans-serif;font-size:1.3rem;color:var(--light-blue);}
+  .impact-note{font-size:.76rem;color:rgba(243,249,252,.5);margin-top:18px;}
+
+  /* ---------- Vision ---------- */
+  .vision-grid{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:56px;
+    align-items:center;
+  }
+  .vision-photo svg{width:100%; max-width:420px; border-radius:var(--radius-lg); box-shadow:var(--shadow-card);}
+
+  /* ---------- Ubicación ---------- */
+  .location-grid{
+    display:grid;
+    grid-template-columns:.95fr 1.05fr;
+    gap:56px;
+    align-items:center;
+  }
+  .location-detail{display:flex;gap:14px;align-items:flex-start;margin-top:22px;}
+  .location-detail .ico{
+    width:38px;height:38px;border-radius:10px;
+    background:var(--pale-blue);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .location-detail strong{display:block;font-size:.95rem;color:var(--navy);margin-bottom:2px;}
+  .location-detail span{font-size:.9rem;color:var(--muted);}
+  .map-embed{
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow-soft);
+    line-height:0;
+  }
+  .map-embed iframe{width:100%;height:360px;border:0;display:block;}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:flex-start;
+  }
+  .contact-info h2{margin-bottom:16px;}
+  .whatsapp-btn{
+    margin-top:26px;
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:#25D366;
+    color:#fff;
+    padding:15px 26px;
+    border-radius:100px;
+    font-weight:700;
+    box-shadow:0 14px 30px -12px rgba(37,211,102,.55);
+    transition:transform .3s var(--ease);
+  }
+  .whatsapp-btn:hover{transform:translateY(-2px);}
+  .contact-detail{display:flex;gap:14px;align-items:center;margin-top:18px;}
+  .contact-detail .ico{
+    width:38px;height:38px;border-radius:10px;
+    background:var(--pale-blue);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-detail span{font-size:.92rem;font-weight:600;color:var(--navy);}
+
+  form{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:36px;
+    box-shadow:var(--shadow-soft);
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .field label{
+    display:block;
+    font-size:.82rem;
+    font-weight:700;
+    color:var(--navy);
+    margin-bottom:8px;
+  }
+  .field input, .field textarea{
+    width:100%;
+    padding:13px 16px;
+    border-radius:12px;
+    border:1.5px solid rgba(13,43,69,.12);
+    font-family:'Inter',sans-serif;
+    font-size:.94rem;
+    color:var(--ink);
+    background:var(--white);
+    transition:border-color .25s, box-shadow .25s;
+  }
+  .field input:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--aqua);
+    box-shadow:0 0 0 4px rgba(74,163,195,.15);
+  }
+  .field textarea{resize:vertical;min-height:100px;}
+  .form-msg{
+    display:none;
+    font-size:.88rem;
+    font-weight:600;
+    color:var(--blue);
+    background:var(--pale-blue);
+    padding:12px 16px;
+    border-radius:12px;
+  }
+  .form-msg.show{display:block;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--navy);
+    padding:50px 0 26px;
+    color:rgba(243,249,252,.7);
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:30px;
+    padding-bottom:34px;
+    border-bottom:1px solid rgba(243,249,252,.12);
+  }
+  .footer-logo{
+    display:flex;align-items:center;gap:9px;
+    font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;color:var(--white);
+    margin-bottom:10px;
+  }
+  .footer-logo .drop{width:13px;height:16px;}
+  .footer-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .footer-col h5{
+    font-family:'Sora',sans-serif;
+    font-size:.82rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:rgba(243,249,252,.5);
+    margin-bottom:14px;
+  }
+  .footer-col a{display:block;font-size:.88rem;margin-bottom:10px;color:rgba(243,249,252,.78);}
+  .footer-col a:hover{color:var(--light-blue);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:22px;font-size:.8rem;flex-wrap:wrap;gap:12px;
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px){
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; width:78%;
+      background:var(--white); flex-direction:column; align-items:flex-start;
+      padding:100px 30px 30px; gap:26px;
+      box-shadow:-20px 0 50px rgba(13,43,69,.15);
+      transform:translateX(100%); transition:transform .4s var(--ease);
+      z-index:1001;
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-cta .btn-ghost{display:none;}
+    .burger{display:flex;}
+  }
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr; text-align:left;}
+    .hero-art{order:-1; max-width:340px; margin:0 auto 20px;}
+    .problem-grid, .solution-grid, .impact-grid, .contact-grid, .vision-grid, .location-grid{grid-template-columns:1fr; gap:40px;}
+    .solution-grid{grid-template-columns:1fr;}
+    .card-grid{grid-template-columns:repeat(2,1fr);}
+    .customer-grid{grid-template-columns:repeat(2,1fr);}
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:repeat(2,1fr); row-gap:40px;}
+    .step-line{display:none;}
+    table{font-size:.85rem;}
+  }
+  @media (max-width:760px){
+    .hero{padding-top:130px;}
+    table{min-width:620px;}
+    .scroll-hint{display:flex;}
+    .float-card{display:none;}
+    .card-grid, .customer-grid, .service-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr; gap:30px;}
+    .hero-ctas{flex-direction:column; align-items:stretch;}
+    .hero-ctas .btn{width:100%;}
+    thead th, tbody td{padding:12px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">
+        <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#4AA3C3"/></svg>
+        Hidria
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#solucion">Solución</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#impacto">Impacto</a></li>
+        <li><a href="#vision">Visión</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#contacto" class="btn btn-ghost">Solicitar información</a>
+        <button class="burger" id="burgerBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">
+        <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>
+        Agua potable para todos
+      </span>
+      <h1>Agua segura, accesible y al alcance de todos</h1>
+      <p class="tagline">Cada gota cuenta.</p>
+      <p class="lead">Purificadores de agua a bajo costo para hogares, comunidades y pequeños negocios. Instalación, mantenimiento y filtros incluidos, sin complicaciones.</p>
+      <div class="hero-ctas">
+        <a href="#solucion" class="btn btn-primary" data-ripple>Conoce Hidria</a>
+        <a href="#contacto" class="btn btn-ghost" data-ripple>Solicitar información</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z" stroke="#1E5787" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Agua confiable</span>
+        </div>
+        <div class="trust-item">
+          <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#1E5787" stroke-width="1.8"/><path d="M12 7.5v9M9.5 9.8c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.1-5 3.5 0 1.1 1.1 1.9 2.5 1.9s2.5-.9 2.5-2" stroke="#1E5787" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span>Costo justo</span>
+        </div>
+        <div class="trust-item">
+          <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1E5787" stroke-width="1.8"/><path d="M8 12l2.5 2.5L16 9" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Soporte incluido</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 420 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="210" cy="420" rx="140" ry="20" fill="#D6ECF6"/>
+        <rect x="120" y="120" width="180" height="260" rx="26" fill="#0D2B45"/>
+        <rect x="138" y="150" width="144" height="150" rx="14" fill="#1E5787"/>
+        <rect x="152" y="166" width="116" height="20" rx="10" fill="#8EC6E0"/>
+        <rect x="152" y="196" width="80" height="12" rx="6" fill="#4AA3C3"/>
+        <rect x="152" y="216" width="100" height="12" rx="6" fill="#4AA3C3" opacity=".7"/>
+        <circle cx="210" cy="330" r="34" fill="#4AA3C3"/>
+        <path d="M210 312c0 0-16 18-16 28.8C194 349 201.2 356 210 356c8.8 0 16-7 16-15.2C226 330 210 312 210 312z" fill="#F3F9FC"/>
+        <rect x="180" y="90" width="60" height="34" rx="8" fill="#1E5787"/>
+        <path d="M60 380c30-18 50-18 80 0s50 18 80 0 50-18 80 0 50 18 80 0" stroke="#8EC6E0" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="330" cy="120" r="10" fill="#8EC6E0" opacity=".8"/>
+        <circle cx="70" cy="160" r="7" fill="#4AA3C3" opacity=".7"/>
+        <circle cx="90" cy="90" r="5" fill="#8EC6E0" opacity=".8"/>
+      </svg>
+      <div class="float-card c1">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#1E5787" stroke-width="1.8"/><path d="M12 7.5v9M9.5 9.8c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.1-5 3.5 0 1.1 1.1 1.9 2.5 1.9s2.5-.9 2.5-2" stroke="#1E5787" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div>
+          <strong>Hasta 70%</strong>
+          <small>menos gasto en agua</small>
+        </div>
+      </div>
+      <div class="float-card c2">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#1E5787" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div>
+          <strong>Instalación</strong>
+          <small>incluida sin costo extra</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C240,90 480,0 720,30 C960,60 1200,10 1440,45 L1440,100 L0,100 Z" fill="#F3F9FC"/></svg>
+  </div>
+</section>
+
+<!-- ============ PROBLEMA ============ -->
+<section class="section bg-white" id="problema">
+  <div class="wrap problem-grid">
+    <div class="reveal">
+      <span class="eyebrow"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>El problema</span>
+      <h2>Tener agua segura en casa no debería ser un lujo</h2>
+      <p class="lead">En muchas comunidades, el agua que llega por la llave no es del todo confiable. Las familias terminan pagando de más por agua embotellada, sin tener certeza real de qué tan segura es la que están llevando a la mesa.</p>
+    </div>
+    <div class="stat-list reveal">
+      <div class="stat-row">
+        <div class="stat-num">84%</div>
+        <div>
+          <h4>De los hogares consume agua de botellón</h4>
+          <p>La gran mayoría de las familias ya no confía en el agua de la llave y depende del botellón como única alternativa.</p>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">11%</div>
+        <div>
+          <h4>Del ingreso familiar se destina al agua</h4>
+          <p>Hasta un 11% de los ingresos del hogar puede irse solo en comprar agua para beber, mes tras mes.</p>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">Miles</div>
+        <div>
+          <h4>De botellas plásticas de residuo cada año</h4>
+          <p>Cada botellón y botella desechada se suma a un problema ambiental que crece junto con la demanda de agua embotellada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUCIÓN ============ -->
+<section class="section bg-pale" id="solucion">
+  <div class="wrap solution-grid">
+    <div class="solution-visual reveal">
+      <svg viewBox="0 0 200 220" fill="none">
+        <rect x="30" y="20" width="140" height="180" rx="20" fill="#F3F9FC" opacity=".08"/>
+        <rect x="46" y="40" width="108" height="120" rx="12" fill="#4AA3C3"/>
+        <rect x="60" y="56" width="80" height="14" rx="7" fill="#F3F9FC"/>
+        <rect x="60" y="80" width="55" height="10" rx="5" fill="#F3F9FC" opacity=".7"/>
+        <circle cx="100" cy="185" r="20" fill="#F3F9FC"/>
+        <path d="M100 172c0 0-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-16-9-16z" fill="#4AA3C3"/>
+      </svg>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>La solución</span>
+      <h2>Un purificador accesible, con todo resuelto</h2>
+      <p class="lead">Hidria ofrece un purificador de agua de bajo costo pensado para el día a día real de cada hogar, comunidad o negocio. No solo vendemos el equipo: nos encargamos de que siga funcionando bien con el tiempo.</p>
+      <div class="check-list">
+        <div class="check-item">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#1E5787" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Purificador de bajo costo, con planes de pago accesibles</span>
+        </div>
+        <div class="check-item">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#1E5787" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Instalación incluida, sin necesidad de contratar a nadie más</span>
+        </div>
+        <div class="check-item">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#1E5787" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Soporte de mantenimiento cuando lo necesites</span>
+        </div>
+        <div class="check-item">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#1E5787" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Reposición periódica de filtros para que el agua siga siendo segura</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALOR ============ -->
+<section class="section bg-white">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto;"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Lo que te ofrecemos</span>
+      <h2>Beneficios pensados para tu bolsillo y tu salud</h2>
+    </div>
+    <div class="card-grid">
+      <div class="card reveal">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9C1 8 3 4 7 4c2 0 3.8 1.2 5 3 1.2-1.8 3-3 5-3 4 0 6 4 4.5 8-2.5 4.5-9.5 9-9.5 9z" stroke="#1E5787" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Purificadores de bajo costo</h3>
+        <p>Equipos eficientes a un precio pensado para economías familiares y pequeños negocios.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z" stroke="#1E5787" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Agua más segura en casa</h3>
+        <p>Filtración confiable que reduce el riesgo de consumir agua contaminada todos los días.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="12" rx="3" stroke="#1E5787" stroke-width="1.8"/><path d="M3 11h18" stroke="#1E5787" stroke-width="1.8"/><circle cx="17" cy="14.5" r="1.4" fill="#1E5787"/></svg></div>
+        <h3>Ahorro frente al agua embotellada</h3>
+        <p>Deja de pagar cada semana por botellones o bolsas de agua y reduce ese gasto fijo.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3l3 3M4 20l1.2-4.2 9.6-9.6a2 2 0 0 1 2.8 0l1.2 1.2a2 2 0 0 1 0 2.8L9.2 19.8 4 20z" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Instalación y mantenimiento fácil</h3>
+        <p>Nosotros lo instalamos y le damos seguimiento, sin que tengas que preocuparte por nada técnico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTES ============ -->
+<section class="section bg-pale">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto;"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>¿Para quién es Hidria?</span>
+      <h2>Diseñado para quienes más lo necesitan</h2>
+    </div>
+    <div class="customer-grid">
+      <div class="customer-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#F3F9FC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v9h14v-9" stroke="#F3F9FC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Familias de bajos ingresos</h4>
+        <p>Que buscan cuidar su salud sin gastar de más cada mes.</p>
+      </div>
+      <div class="customer-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#F3F9FC" stroke-width="1.8"/><path d="M12 3v18M3 12h18" stroke="#F3F9FC" stroke-width="1.8"/></svg></div>
+        <h4>Comunidades con escasez de agua</h4>
+        <p>Zonas donde el suministro es limitado, irregular o poco confiable.</p>
+      </div>
+      <div class="customer-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M10 2h4M11 2v4.2c0 .5-.15 1-.45 1.4L8.6 10.4A2.5 2.5 0 008 12v8a2 2 0 002 2h4a2 2 0 002-2v-8c0-.6-.2-1.15-.6-1.6l-1.95-2.8A2.5 2.5 0 0113 6.2V2" stroke="#F3F9FC" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 15h7" stroke="#F3F9FC" stroke-width="1.7"/></svg></div>
+        <h4>Compradores frecuentes de agua embotellada</h4>
+        <p>Personas que gastan mes a mes en botellones sin ya cuestionárselo.</p>
+      </div>
+      <div class="customer-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 21V9l9-5 9 5v12" stroke="#F3F9FC" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 21v-6h8v6M12 4v5" stroke="#F3F9FC" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+        <h4>Escuelas y pequeños negocios</h4>
+        <p>Espacios que necesitan agua confiable para muchas personas a la vez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VENTAJA COMPETITIVA ============ -->
+<section class="section bg-white">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto;"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Por qué Hidria</span>
+      <h2>Lo mejor de ambos mundos, sin el precio de ninguno</h2>
+      <p>Comparado con comprar agua embotellada o invertir en un purificador de gama alta, Hidria combina precio accesible con acompañamiento real.</p>
+    </div>
+    <div class="compare-wrap reveal">
+      <div class="compare-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Comparativo</th>
+            <th>Proveedores tradicionales</th>
+            <th>Purificadores premium</th>
+            <th class="highlight">Hidria</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Costo inicial accesible</td>
+            <td><span class="no">✕</span></td>
+            <td><span class="no">✕</span></td>
+            <td class="highlight"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Instalación incluida</td>
+            <td><span class="no">✕</span></td>
+            <td><span class="no">✕</span></td>
+            <td class="highlight"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Mantenimiento incluido</td>
+            <td><span class="no">✕</span></td>
+            <td><span class="no">Costo extra</span></td>
+            <td class="highlight"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Reposición de filtros</td>
+            <td><span class="no">✕</span></td>
+            <td><span class="no">Costo extra</span></td>
+            <td class="highlight"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Atención personalizada</td>
+            <td><span class="no">✕</span></td>
+            <td><span class="no">Limitada</span></td>
+            <td class="highlight"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Ahorro a largo plazo</td>
+            <td><span class="no">✕</span></td>
+            <td><span class="yes">✓</span></td>
+            <td class="highlight"><span class="yes">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M8 5l6 7-6 7" stroke="#1E5787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Desliza para ver la comparación completa
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section class="section bg-pale" id="como-funciona">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto;"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Cómo funciona</span>
+      <h2>Empezar es más fácil de lo que crees</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+        <h4>Contáctanos</h4>
+        <p>Escríbenos por WhatsApp o llena el formulario y cuéntanos tu situación.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+        <h4>Elige tu purificador</h4>
+        <p>Te recomendamos el equipo y plan que mejor se ajusta a tu hogar o negocio.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+        <h4>Lo instalamos</h4>
+        <p>Nuestro equipo hace la instalación completa, sin que tengas que hacer nada.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+        <h4>Disfruta agua más segura</h4>
+        <p>Empieza a ahorrar y a beber agua purificada desde el primer día.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICIOS ============ -->
+<section class="section bg-white" id="servicios">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto;"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Nuestros servicios</span>
+      <h2>Todo lo que necesitas, en un solo lugar</h2>
+    </div>
+    <div class="service-grid">
+      <div class="service-card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9C1 8 3 4 7 4c2 0 3.8 1.2 5 3 1.2-1.8 3-3 5-3 4 0 6 4 4.5 8-2.5 4.5-9.5 9-9.5 9z" stroke="#1E5787" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h4>Venta de purificadores</h4>
+        <p>Equipos confiables a precio accesible, con planes flexibles.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3l3 3M4 20l1.2-4.2 9.6-9.6a2 2 0 0 1 2.8 0l1.2 1.2a2 2 0 0 1 0 2.8L9.2 19.8 4 20z" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Instalación</h4>
+        <p>Nuestro equipo lo pone en marcha rápido y sin complicaciones.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 10a8 8 0 00-14.6-4.6M4 14a8 8 0 0014.6 4.6" stroke="#1E5787" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h4>Reposición de filtros</h4>
+        <p>Filtros nuevos cuando toca, para que el agua siga siendo segura.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#1E5787" stroke-width="1.8"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.6V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.6-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.6-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.6V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.6 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.6 1z" stroke="#1E5787" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+        <h4>Mantenimiento y reparación</h4>
+        <p>Le damos seguimiento a tu equipo para que dure y funcione bien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACTO SOCIAL ============ -->
+<section class="section bg-navy" id="impacto">
+  <div class="wrap impact-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="background:rgba(214,236,246,.12); color:var(--light-blue);">
+        <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#8EC6E0"/></svg>
+        Impacto social
+      </span>
+      <h2>Más que agua: bienestar para toda la familia</h2>
+      <p style="max-width:48ch; margin-bottom:32px;">Cada purificador instalado significa menos gasto mensual, mejor salud y menos dependencia del agua embotellada, aliviando la presión sobre las economías familiares y sobre el ambiente.</p>
+      <div class="impact-points">
+        <div class="impact-point">
+          <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#8EC6E0" stroke-width="1.8"/><path d="M12 7.5v9M9.5 9.8c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.1-5 3.5 0 1.1 1.1 1.9 2.5 1.9s2.5-.9 2.5-2" stroke="#8EC6E0" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <div>
+            <h4>Reduce gastos del hogar</h4>
+            <p>El dinero que antes se iba en botellones puede usarse en otras necesidades.</p>
+          </div>
+        </div>
+        <div class="impact-point">
+          <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z" stroke="#8EC6E0" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+          <div>
+            <h4>Mejora la salud familiar</h4>
+            <p>Agua más segura significa menos enfermedades relacionadas al consumo de agua.</p>
+          </div>
+        </div>
+        <div class="impact-point">
+          <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="#8EC6E0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 10a8 8 0 00-14.6-4.6M4 14a8 8 0 0014.6 4.6" stroke="#8EC6E0" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <div>
+            <h4>Menos dependencia del plástico</h4>
+            <p>Menos botellas y botellones significa también menos residuos para la comunidad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="impact-goals reveal">
+      <div class="goal">
+        <span>Ahorro estimado en agua embotellada</span>
+        <strong>Hasta 70%</strong>
+      </div>
+      <div class="goal">
+        <span>Tiempo de instalación</span>
+        <strong>&lt; 1 día</strong>
+      </div>
+      <div class="goal">
+        <span>Familias que buscamos alcanzar</span>
+        <strong>+1,000</strong>
+      </div>
+      <div class="goal">
+        <span>Comunidades priorizadas</span>
+        <strong>Acceso limitado</strong>
+      </div>
+      <p class="impact-note">Cifras estimadas como metas del proyecto, sujetas a validación en campo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIÓN ============ -->
+<section class="section tight bg-white vision-section" id="vision">
+  <div class="wrap vision-grid">
+    <div class="vision-photo reveal" aria-hidden="true">
+      <svg viewBox="0 0 400 320" fill="none">
+        <rect x="0" y="0" width="400" height="320" rx="28" fill="#D6ECF6"/>
+        <path d="M40 200c40-40 60 20 100-10s60 30 100 0 60-30 100 10" stroke="#8EC6E0" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <rect x="60" y="70" width="90" height="130" rx="16" fill="#1E5787"/>
+        <path d="M105 90c0 0-14 16-14 25.6 0 8 6.3 14.4 14 14.4s14-6.4 14-14.4C119 106 105 90 105 90z" fill="#F3F9FC"/>
+        <circle cx="270" cy="150" r="60" fill="#4AA3C3" opacity=".25"/>
+        <circle cx="270" cy="150" r="34" fill="#4AA3C3"/>
+        <path d="M270 132c0 0-13 14.5-13 23.2 0 7.2 5.8 13 13 13s13-5.8 13-13C283 146.5 270 132 270 132z" fill="#F3F9FC"/>
+      </svg>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Nuestra visión</span>
+      <h2>Cada familia dominicana merece agua potable y segura</h2>
+      <p class="lead">En Hidria queremos que cada familia dominicana tenga acceso a agua potable y segura, sin que el costo sea la barrera que se lo impida. Empezamos donde el problema pega más fuerte: comunidades con suministro irregular y familias que hoy gastan una parte importante de su ingreso solo en poder beber agua confiable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UBICACIÓN ============ -->
+<section class="section tight bg-white" id="ubicacion">
+  <div class="wrap location-grid">
+    <div class="reveal">
+      <span class="eyebrow"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Nuestra ubicación</span>
+      <h2>Visítanos en nuestra tienda y almacén</h2>
+      <p class="lead">Nuestra tienda física y almacén principal están ubicados en la Av. Luperón, Santo Domingo, República Dominicana. También contamos con una pequeña oficina administrativa en el mismo local.</p>
+      <div class="location-detail">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-6.5-5.8-6.5-11A6.5 6.5 0 1118.5 10c0 5.2-6.5 11-6.5 11z" stroke="#1E5787" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="#1E5787" stroke-width="1.6"/></svg></span>
+        <div>
+          <strong>Tienda y almacén principal</strong>
+          <span>Av. Gregorio Luperón, lado este (frente a La Sirena Luperón, cruzando la avenida), Santo Domingo, D.N., República Dominicana</span>
+        </div>
+      </div>
+      <div class="location-detail">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 21V9l9-5 9 5v12" stroke="#1E5787" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 21v-6h8v6M12 4v5" stroke="#1E5787" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+        <div>
+          <strong>Oficina administrativa</strong>
+          <span>Ubicada dentro del mismo local, en el almacén principal</span>
+        </div>
+      </div>
+    </div>
+    <div class="map-embed reveal">
+      <iframe src="https://www.google.com/maps?q=18.4668,-69.9684&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Hidria, lado este de la Av. Gregorio Luperón, Santo Domingo"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section class="section bg-pale" id="contacto">
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow"><svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#1E5787"/></svg>Contáctanos</span>
+      <h2>Hablemos sobre tu agua</h2>
+      <p class="lead">Cuéntanos dónde estás y qué necesitas. Te ayudamos a encontrar el purificador ideal para tu hogar, comunidad o negocio.</p>
+
+      <a href="https://wa.me/18095551234" target="_blank" rel="noopener" class="whatsapp-btn" data-ripple>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.9 3.3 1.4 5.2 1.4 5.5 0 10-4.5 10-10S17.5 2 12 2zm5.9 14.2c-.2.6-1.2 1.1-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.7-4.4-3.9-.1-.2-1-1.3-1-2.6s.7-1.8 1-2.1c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.1.3-.3.5-.1.2-.3.4-.5.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.5 1.5.2.1.3.1.4-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.1.5.2.5.3.1.2.1.6-.1 1.2z"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+
+      <div class="contact-detail">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.4 2.1L8 9.9a16 16 0 006 6l1.5-1.5a2 2 0 012.1-.4c.9.3 1.8.5 2.7.6a2 2 0 011.7 2.1z" stroke="#1E5787" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <span>+1 (809) 555-1234</span>
+      </div>
+      <div class="contact-detail">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#1E5787" stroke-width="1.6"/><path d="M3 7l9 6 9-6" stroke="#1E5787" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <span>hola@hidria.com</span>
+      </div>
+    </div>
+
+    <form id="contactForm" class="reveal">
+      <div class="field">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" name="name" placeholder="Escribe tu nombre">
+      </div>
+      <div class="field">
+        <label for="phone">Teléfono</label>
+        <input type="tel" id="phone" name="phone" placeholder="Tu número de contacto">
+      </div>
+      <div class="field">
+        <label for="sector">Comunidad / sector</label>
+        <input type="text" id="sector" name="sector" placeholder="¿Dónde estás ubicado?">
+      </div>
+      <div class="field">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" placeholder="Cuéntanos qué necesitas..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" data-ripple>Enviar solicitud</button>
+      <div class="form-msg" id="formMsg">¡Gracias! Hemos recibido tu solicitud, te contactaremos pronto.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#4AA3C3"/></svg>
+          Hidria
+        </div>
+        <p style="max-width:28ch; font-size:.85rem;">Agua segura y accesible para hogares, comunidades y pequeños negocios.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Navegación</h5>
+          <a href="#problema">Problema</a>
+          <a href="#solucion">Solución</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#ubicacion">Ubicación</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+        <div class="footer-col">
+          <h5>Contacto</h5>
+          <a href="https://wa.me/18095551234" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="mailto:hola@hidria.com">hola@hidria.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Hidria. Proyecto de emprendimiento universitario.</span>
+      <span>Hecho con enfoque en impacto social.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Mobile nav toggle
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Ripple effect
+  document.querySelectorAll('[data-ripple]').forEach(btn => {
+    btn.addEventListener('click', function(e){
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Contact form (front-end only demo)
+  const form = document.getElementById('contactForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    formMsg.classList.add('show');
+    form.reset();
+    setTimeout(() => formMsg.classList.remove('show'), 6000);
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
