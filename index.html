@@ -179,7 +179,7 @@
     font-size:1.4rem;
     color:var(--navy);
   }
-  .logo .drop{width:14px;height:18px;}
+  .logo img{height:32px;width:auto;display:block;}
   .nav-links{
     display:flex;
     align-items:center;
@@ -256,13 +256,20 @@
   .hero-art{
     position:relative;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
+    gap:22px;
   }
   .hero-art svg{width:100%;height:auto;max-width:430px;}
   .hero-art img{width:100%;height:auto;max-width:400px;border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);}
+  .hero-stats{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
   .float-card{
-    position:absolute;
     background:var(--white);
     border-radius:var(--radius-md);
     box-shadow:var(--shadow-soft);
@@ -272,8 +279,8 @@
     gap:12px;
     animation:float 5s ease-in-out infinite;
   }
-  .float-card.c1{top:6%; left:-4%; animation-delay:0s;}
-  .float-card.c2{bottom:10%; right:-6%; animation-delay:1.2s;}
+  .float-card.c1{animation-delay:0s;}
+  .float-card.c2{animation-delay:1.2s;}
   .float-card .ico{
     width:38px;height:38px;border-radius:12px;
     background:var(--pale-blue);
@@ -281,7 +288,7 @@
   }
   .float-card strong{display:block;font-size:.95rem;color:var(--navy);}
   .float-card small{color:var(--muted);font-size:.76rem;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 
   .wave-divider{
     display:block;
@@ -668,11 +675,18 @@
     border-bottom:1px solid rgba(243,249,252,.12);
   }
   .footer-logo{
-    display:flex;align-items:center;gap:9px;
-    font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;color:var(--white);
+    display:flex;align-items:center;
     margin-bottom:10px;
   }
-  .footer-logo .drop{width:13px;height:16px;}
+  .logo-chip{
+    display:inline-flex;
+    align-items:center;
+    background:var(--white);
+    border-radius:12px;
+    padding:6px 14px;
+    box-shadow:var(--shadow-card);
+  }
+  .logo-chip img{height:22px;width:auto;display:block;}
   .footer-cols{display:flex;gap:60px;flex-wrap:wrap;}
   .footer-col h5{
     font-family:'Sora',sans-serif;
@@ -723,7 +737,7 @@
     .hero{padding-top:130px;}
     table{min-width:620px;}
     .scroll-hint{display:flex;}
-    .float-card{display:none;}
+    .hero-stats{display:none;}
     .card-grid, .customer-grid, .service-grid{grid-template-columns:1fr;}
     .steps{grid-template-columns:1fr; gap:30px;}
     .hero-ctas{flex-direction:column; align-items:stretch;}
@@ -739,8 +753,7 @@
   <div class="wrap">
     <nav>
       <a href="#top" class="logo">
-        <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#4AA3C3"/></svg>
-        Hidria
+        <img src="assets/logo.png" alt="Hidria">
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#problema">Problema</a></li>
@@ -793,6 +806,7 @@
 
     <div class="hero-art">
       <img src="assets/Filtro.png" alt="Purificador de agua Hidria" class="hero-product-img">
+      <div class="hero-stats">
       <div class="float-card c1">
         <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#1E5787" stroke-width="1.8"/><path d="M12 7.5v9M9.5 9.8c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.1-5 3.5 0 1.1 1.1 1.9 2.5 1.9s2.5-.9 2.5-2" stroke="#1E5787" stroke-width="1.6" stroke-linecap="round"/></svg></span>
         <div>
@@ -806,6 +820,7 @@
           <strong>Instalación</strong>
           <small>incluida sin costo extra</small>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -1084,6 +1099,7 @@
 <section class="section bg-navy" id="impacto">
   <div class="wrap impact-grid">
     <div class="reveal">
+      <span class="logo-chip" style="display:flex;width:fit-content;margin-bottom:18px;"><img src="assets/logo.png" alt="Hidria"></span>
       <span class="eyebrow" style="background:rgba(214,236,246,.12); color:var(--light-blue);">
         <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#8EC6E0"/></svg>
         Impacto social
@@ -1238,8 +1254,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-logo">
-          <svg class="drop" viewBox="0 0 14 18" fill="none"><path d="M7 0C7 0 0 8.5 0 12.2C0 15.9 3.1 18 7 18C10.9 18 14 15.9 14 12.2C14 8.5 7 0 7 0Z" fill="#4AA3C3"/></svg>
-          Hidria
+          <span class="logo-chip"><img src="assets/logo.png" alt="Hidria"></span>
         </div>
         <p style="max-width:28ch; font-size:.85rem;">Agua segura y accesible para hogares, comunidades y pequeños negocios.</p>
       </div>
